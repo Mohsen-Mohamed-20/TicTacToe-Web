@@ -1,4 +1,4 @@
-import { MODES } from '../utils/gameLogic';
+import { getTranslations, translateDifficulty, translateMode } from '../utils/i18n';
 
 export default function ControlPanel({
   mode,
@@ -14,30 +14,32 @@ export default function ControlPanel({
   onToggleSound,
   onToggleLanguage,
 }) {
+  const t = getTranslations(language);
+
   return (
     <section className="rounded-xl border border-white/10 bg-panel/90 p-4">
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-        <InfoCard label={language === 'ar' ? 'الدور الحالي' : 'Current turn'} value={status} color={current === 'X' ? 'text-cyan' : 'text-pink'} />
-        <InfoCard label={language === 'ar' ? 'وضع اللعب' : 'Game mode'} value={MODES[mode]} />
-        <InfoCard label={language === 'ar' ? 'المستوى' : 'Difficulty'} value={difficulty} color="text-violet" />
-        <InfoCard label="X / O" value={`${playerNames.X} vs ${playerNames.O}`} color="text-cyan" />
+        <InfoCard label={t.currentTurn} value={status} color={current === 'X' ? 'text-cyan' : 'text-pink'} />
+        <InfoCard label={t.gameMode} value={translateMode(mode, language)} />
+        <InfoCard label={t.difficulty} value={translateDifficulty(difficulty, language)} color="text-violet" />
+        <InfoCard label="X / O" value={`${playerNames.X} ${t.versus} ${playerNames.O}`} color="text-cyan" />
       </div>
 
       <div className="mt-4 grid grid-cols-2 gap-2">
         <button type="button" onClick={onResetRound} className="neon-button border-amber/70 text-amber">
-          Reset round
+          {t.resetRound}
         </button>
         <button type="button" onClick={onResetScores} className="neon-button border-violet/70 text-violet">
-          Reset scores
+          {t.resetScores}
         </button>
         <button type="button" onClick={onBackToMenu} className="neon-button border-pink/70 text-pink">
-          Menu
+          {t.menu}
         </button>
         <button type="button" onClick={onToggleSound} className="neon-button border-cyan/70 text-cyan">
-          {soundOn ? 'Sound on' : 'Muted'}
+          {soundOn ? t.soundOn : t.muted}
         </button>
         <button type="button" onClick={onToggleLanguage} className="neon-button col-span-2 border-white/20 text-white">
-          {language === 'ar' ? 'English' : 'العربية'}
+          {t.languageName}
         </button>
       </div>
     </section>

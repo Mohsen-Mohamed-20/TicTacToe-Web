@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion';
+import { getTranslations } from '../utils/i18n';
 
-export default function EndGameOverlay({ winner, playerNames, onPlayAgain, onMenu }) {
+export default function EndGameOverlay({ winner, playerNames, language, onPlayAgain, onMenu }) {
   if (!winner) return null;
 
+  const t = getTranslations(language);
   const isDraw = winner === 'Draw';
-  const headline = isDraw ? 'DRAW' : `${playerNames[winner]} WINS`;
+  const headline = isDraw ? t.draw : `${playerNames[winner]} ${t.wins}`;
 
   return (
     <div className="absolute inset-0 z-20 grid place-items-center rounded-2xl bg-void/80 p-5 backdrop-blur-sm">
@@ -14,13 +16,13 @@ export default function EndGameOverlay({ winner, playerNames, onPlayAgain, onMen
         className={`w-full max-w-sm rounded-2xl border bg-panel p-5 text-center ${isDraw ? 'border-cyan/60 shadow-cyan' : 'border-amber/60 shadow-amber'}`}
       >
         <h2 className={`truncate font-display text-4xl font-black ${isDraw ? 'text-cyan' : 'text-amber'}`}>{headline}</h2>
-        <p className="mt-2 text-sm text-muted">{isDraw ? 'No winner this round' : 'Perfect line secured'}</p>
+        <p className="mt-2 text-sm text-muted">{isDraw ? t.noWinner : t.perfectLine}</p>
         <div className="mt-5 grid grid-cols-2 gap-2">
           <button type="button" onClick={onPlayAgain} className="neon-button border-cyan/70 text-cyan">
-            Play again
+            {t.playAgain}
           </button>
           <button type="button" onClick={onMenu} className="neon-button border-pink/70 text-pink">
-            Menu
+            {t.menu}
           </button>
         </div>
       </motion.div>

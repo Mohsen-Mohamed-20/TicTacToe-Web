@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import Cell from './Cell';
+import { getTranslations } from '../utils/i18n';
 
 function lineClass(line) {
   if (!line) return 'hidden';
@@ -17,7 +18,8 @@ function lineClass(line) {
   return classes[key] ?? 'hidden';
 }
 
-export default function Board({ board, preview, aiWaiting, bestMove, lastAiMove, winLine, disabled, onSelect }) {
+export default function Board({ board, preview, aiWaiting, bestMove, lastAiMove, winLine, language, disabled, onSelect }) {
+  const t = getTranslations(language);
   const highlights = Object.fromEntries(
     Object.entries(preview.scores ?? {}).map(([index, score]) => [
       index,
@@ -41,6 +43,7 @@ export default function Board({ board, preview, aiWaiting, bestMove, lastAiMove,
             highlight={highlights[index]}
             isBest={bestMove === index || lastAiMove === index}
             isWinning={winLine?.includes(index)}
+            language={language}
             onSelect={onSelect}
           />
         ))}
@@ -58,7 +61,7 @@ export default function Board({ board, preview, aiWaiting, bestMove, lastAiMove,
       {aiWaiting && (
         <div className="pointer-events-none absolute inset-x-4 bottom-4 flex items-center justify-center">
           <div className="rounded-full border border-cyan/30 bg-void/85 px-4 py-2 font-display text-xs uppercase tracking-[0.28em] text-cyan shadow-cyan">
-            AI thinking
+            {t.aiThinking}
           </div>
         </div>
       )}

@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
+import { getTranslations } from '../utils/i18n';
 
-export default function Cell({ index, value, disabled, highlight, isBest, isWinning, onSelect }) {
+export default function Cell({ index, value, disabled, highlight, isBest, isWinning, language, onSelect }) {
+  const t = getTranslations(language);
   const color = value === 'X' ? 'text-cyan' : 'text-pink';
   const borderColor = isWinning ? 'border-amber shadow-amber' : 'border-white/10';
   const score = highlight?.score;
@@ -9,7 +11,7 @@ export default function Cell({ index, value, disabled, highlight, isBest, isWinn
   return (
     <button
       type="button"
-      aria-label={`Cell ${index + 1}${value ? ` occupied by ${value}` : ''}`}
+      aria-label={`${t.cell} ${index + 1}${value ? ` ${t.occupiedBy} ${value}` : ''}`}
       disabled={disabled || Boolean(value)}
       onClick={() => onSelect(index)}
       className={`relative aspect-square overflow-hidden rounded-lg border ${borderColor} bg-panel2/80 transition duration-200 focus:outline-none focus:ring-2 focus:ring-cyan/80 disabled:cursor-default sm:rounded-xl ${

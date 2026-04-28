@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { boardWinner, defaultPlayerNames, opponent } from '../utils/gameLogic';
+import { getTranslations } from '../utils/i18n';
 import { chooseAiMove, createEmptyAiResult, previewAiMoves } from '../utils/minimax';
 import { saveSettings } from '../utils/storage';
 
@@ -24,13 +25,13 @@ function buildPreview(board, mode, current, difficulty, gameOver, previewDepthLi
   return previewAiMoves(board, current, difficulty, aiStyle(mode, current), previewDepthLimit);
 }
 
-export function useGame({ mode, difficulty, initialNames, initialScores, sound, enabled = true, previewDepthLimit = 9 }) {
+export function useGame({ mode, difficulty, initialNames, initialScores, sound, language = 'en', enabled = true, previewDepthLimit = 9 }) {
   const [board, setBoard] = useState(Array(9).fill(null));
   const [current, setCurrent] = useState('X');
   const [winner, setWinner] = useState(null);
   const [winLine, setWinLine] = useState(null);
   const [scores, setScores] = useState(initialScores);
-  const [playerNames, setPlayerNames] = useState(initialNames ?? defaultPlayerNames(mode, difficulty));
+  const [playerNames, setPlayerNames] = useState(initialNames ?? defaultPlayerNames(mode, difficulty, language));
   const [aiWaiting, setAiWaiting] = useState(false);
   const [aiStats, setAiStats] = useState(createEmptyAiResult);
   const [preview, setPreview] = useState({ scores: {}, evaluatedOrder: [] });
@@ -97,14 +98,8 @@ export function useGame({ mode, difficulty, initialNames, initialScores, sound, 
   );
 
   useEffect(() => {
-    setPlayerNames((names) => {
-      const defaults = defaultPlayerNames(mode, difficulty);
-      return {
-        X: names?.X || defaults.X,
-        O: names?.O || defaults.O,
-      };
-    });
-  }, [difficulty, mode]);
+    setPlayerNames(initialNames ?? defaultPlayerNames(mode, difficulty, language));
+  }, [difficulty, initialNames, language, mode]);
 
   useEffect(() => {
     setPreview(buildPreview(board, mode, current, difficulty, gameOver, previewDepthLimit));
@@ -150,11 +145,12 @@ export function useGame({ mode, difficulty, initialNames, initialScores, sound, 
   const resetScores = useCallback(() => resetRound({ resetScores: true }), [resetRound]);
 
   const status = useMemo(() => {
-    if (winner === 'Draw') return 'Draw';
-    if (winner) return `${playerNames[winner]} wins`;
-    if (aiWaiting) return `${playerNames[current]} is thinking`;
-    return `${playerNames[current]}'s turn`;
-  }, [aiWaiting, current, playerNames, winner]);
+    const t = getTranslations(language);
+    if (winner === 'Draw') return t.draw;
+    if (winner) return `${playerNames[winner]} ${t.wins}`;
+    if (aiWaiting) return `${playerNames[current]} ${t.isThinking}`;
+    return language === 'ar' ? `${t.turn} ${playerNames[current]}` : `${playerNames[current]}'s ${t.turn}`;
+  }, [aiWaiting, current, language, playerNames, winner]);
 
   return {
     board,

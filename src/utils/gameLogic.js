@@ -9,20 +9,6 @@ export const WIN_LINES = [
   [2, 4, 6],
 ];
 
-export const MODES = {
-  human_ai: 'Human vs AI',
-  human_human: 'Human vs Human',
-  ai_ai: 'AI vs AI Demo',
-  minimax_random: 'Minimax AI vs Random AI',
-};
-
-export const MODE_DESCRIPTIONS = {
-  human_ai: 'Classic challenge',
-  human_human: 'Two players',
-  ai_ai: 'Watch minimax think',
-  minimax_random: 'Strategy lab',
-};
-
 export const DIFFICULTIES = ['Easy', 'Medium', 'Hard', 'Expert'];
 
 export const DEPTH_LIMITS = {
@@ -64,20 +50,43 @@ export function emptyCells(board) {
   return board.map((value, index) => (value ? null : index)).filter((value) => value !== null);
 }
 
-export function defaultPlayerNames(mode, difficulty) {
+export function defaultPlayerNames(mode, difficulty, language = 'en') {
+  const names =
+    language === 'ar'
+      ? {
+          human: 'لاعب',
+          ai: 'الذكاء',
+          minimaxAi: 'ذكاء Minimax',
+          randomAi: 'ذكاء عشوائي',
+          aiX: 'ذكاء X',
+          aiO: 'ذكاء O',
+          player1: 'اللاعب 1',
+          player2: 'اللاعب 2',
+        }
+      : {
+          human: 'Human',
+          ai: 'AI',
+          minimaxAi: 'Minimax AI',
+          randomAi: 'Random AI',
+          aiX: 'AI X',
+          aiO: 'AI O',
+          player1: 'Player 1',
+          player2: 'Player 2',
+        };
+
   if (mode === 'human_ai') {
-    return { X: 'Human', O: 'AI' };
+    return { X: names.human, O: names.ai };
   }
 
   if (mode === 'minimax_random') {
-    return { X: 'Minimax AI', O: 'Random AI' };
+    return { X: names.minimaxAi, O: names.randomAi };
   }
 
   if (mode === 'ai_ai') {
-    return { X: 'AI X', O: 'AI O' };
+    return { X: names.aiX, O: names.aiO };
   }
 
-  return { X: 'Player 1', O: 'Player 2' };
+  return { X: names.player1, O: names.player2 };
 }
 
 export function isArabicText(value) {
