@@ -34,30 +34,31 @@ https://tic-tac-toe-web-7t8d-25my2pbut-mohsen-mohamed-20s-projects.vercel.app
 ## 🎮 Main Menu
 
 ![Arabic Support](./screenshots/Main%20Menu/Arb.png)
+![English Support](./screenshots/Main%20Menu/Eng.png)
 
 ---
 
 ## 🤖 Minimax AI Gameplay
 
-![Gameplay](PUT-LINK-HERE)
+![Minimax AI Gameplay](./screenshots/Minimax%20AI%20Gameplay/Minimax%20AI%20Gameplay.gif)
 
 ---
 
 ## 🧠 AI vs AI Demo
 
-![AI Battle](PUT-LINK-HERE)
+![AI vs AI Demo](./screenshots/AI%20vs%20AI%20Demo/demo.gif)
 
 ---
 
 ## 🌍 Arabic & English Support
 
-![Languages](PUT-LINK-HERE)
+![Arabic & English Support](./screenshots/Arabic%20%26%20English%20Support/Arabic%20%26%20English%20Support.gif)
 
 ---
 
 ## 👥 Player Names System
 
-![Player Names](PUT-LINK-HERE)
+![Player Names System](./screenshots/Player%20Names%20System/Player%20Names%20System.gif)
 
 ---
 
