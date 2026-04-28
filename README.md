@@ -4,7 +4,8 @@ Modern Tic Tac Toe AI web game built with React, Vite, Tailwind CSS, and Framer 
 
 ## 🚀 Live Demo
 
-🔗 Play Now:[ [https://tic-tac-toe-web-7t8d-25my2pbut-mohsen-mohamed-20s-projects.vercel.app](https://tic-tac-toe-web-7t8d-25my2pbut-mohsen-mohamed-20s-projects.vercel.app?_vercel_share=eArbgiaMV8OT6oa6QidsAYOjXuaPKaFc)](https://tic-tac-toe-web-7t8d.vercel.app)
+🔗 Play Now:
+https://tic-tac-toe-web-7t8d.vercel.app
 
 ---
 
